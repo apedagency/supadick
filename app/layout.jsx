@@ -1,11 +1,23 @@
 import './globals.css';
 
 export const metadata = {
-    title: 'Truus — We make advertising for you',
-    description: 'Truus is a creative advertising agency specialising in brand strategy, social media, video production, and activations.',
-    icons: {
-        icon: 'https://cdn.prod.website-files.com/683703490bc01e1b8c052e06/68381362603d6402ee03c00e_favicon.png',
+    title: 'ANSEM | The Black Bull',
+    description: 'The Black Bull charges when everyone else stops believing.',
+    openGraph: {
+        title: 'ANSEM | The Black Bull',
+        description: 'The Black Bull charges when everyone else stops believing.',
     },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'ANSEM | The Black Bull',
+        description: 'The Black Bull charges when everyone else stops believing.',
+    },
+    icons: {
+        icon: '/assets/favicon/favicon.ico',
+        shortcut: '/assets/favicon/favicon.ico',
+        apple: '/assets/favicon/apple-touch-icon.png',
+    },
+    manifest: '/assets/favicon/site.webmanifest',
 };
 
 export default function RootLayout({ children }) {

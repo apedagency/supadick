@@ -8,8 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 55px;
+    width: 90px;
+    height: 85px;
 }
 
 .nav-bar__work-blob-svg {
@@ -57,7 +57,7 @@
 
 .logo-truus {
     display: block;
-    width: 150px;
+    width: 250px;
     height: auto;
 }
 
@@ -197,13 +197,13 @@
 }
 
 .badge-maroon {
-    background-color: #B1536E;
+    background-color: var(--surface-2);
     /* Deep maroon/pink */
     color: var(--color-dark);
 }
 
 .badge-pink {
-    background-color: #EBB6F4;
+    background-color: var(--surface-3);
     /* Light pink */
     color: var(--color-dark);
 }
@@ -312,4 +312,36 @@
 .nav-hover-trigger:hover .nav-wa-link-svg path {
     stroke-dashoffset: 0;
     transition-delay: 0.15s;
+}
+
+.ca-button {
+    position: relative;
+    z-index: 105;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: url("/assets/Cursor SVG/cursor-pointer.svg") 12 12, pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: auto;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+}
+
+.ca-button:active {
+    transform: scale(0.96);
+}
+
+.ca-button-img {
+    display: none;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.ca-button-img.active {
+    display: block;
 }

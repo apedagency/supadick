@@ -5,6 +5,14 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CARDS_DATA } from '@/lib/data';
 
+const STICKER_MAP = {
+    cape: 'camera',
+    lfg: 'phone',
+    'usdc-flying': 'smiley',
+    dicktime: 'hand',
+    computer: 'heart'
+};
+
 export default function ServiceCards() {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -29,7 +37,7 @@ export default function ServiceCards() {
         <>
             {/* ─── "Call us if you need:" Heading ─── */}
             <div className="title-container">
-                <h2 className="main-title">call us if you <span className="italic-text">need:</span></h2>
+                <h2 className="main-title">still asking how to buy? <span className="italic-text">wtf?</span></h2>
                 <svg xmlns="http://www.w3.org/2000/svg" width="160" viewBox="0 0 159 17" fill="none" className="title-underline-svg">
                     <path d="M1 12.1515C53.0771 5.7187 105.529 2.30552 158 1.93652" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
                     <path d="M30.2672 15.9461C64.1899 12.8158 98.2663 11.3583 132.33 11.5735" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -38,17 +46,19 @@ export default function ServiceCards() {
 
             {/* ─── Service Cards ─── */}
             <div className="cards-wrapper" id="cards-wrapper">
-                {CARDS_DATA.map((card) => (
-                    <div key={card.color} className={`card card-${card.color}`}>
-                        <div className={`card-sticker sticker-${card.sticker}`}>
-                            <img
-                                src={`/assets/Card-Sticker SVG/sticker-${card.sticker}.svg`}
-                                alt=""
-                                width="100%"
-                                loading="lazy"
-                                aria-hidden="true"
-                            />
-                        </div>
+                {CARDS_DATA.map((card) => {
+                    const displaySticker = STICKER_MAP[card.sticker] || card.sticker;
+                    return (
+                        <div key={card.color} className={`card card-${card.color}`}>
+                            <div className={`card-sticker sticker-${displaySticker}`}>
+                                <img
+                                    src={`/assets/stamp/${card.sticker}.png`}
+                                    alt=""
+                                    width="100%"
+                                    loading="lazy"
+                                    aria-hidden="true"
+                                />
+                            </div>
                         <h3 className="card-title">{card.title}</h3>
                         <svg width="100%" height="10" className="card-divider-svg" aria-hidden="true">
                             <use href="#card-divider" />
@@ -63,8 +73,9 @@ export default function ServiceCards() {
                                 </li>
                             ))}
                         </ul>
-                    </div>
-                ))}
+                        </div>
+                    );
+                })}
             </div>
         </>
     );
@@ -146,9 +157,11 @@ function initCardAnimations() {
         const navH = 60;
         const mobileRotations = [-6, 4, -8, 5, -3];
 
+        const cardW = Math.min(window.innerWidth - 40, 320);
         cards.forEach((card, i) => {
             gsap.set(card, {
                 position: 'absolute', left: '50%', top: '0', xPercent: -50,
+                width: cardW,
                 y: i === 0 ? 0 : window.innerHeight * 1.1,
                 rotation: mobileRotations[i % mobileRotations.length],
                 zIndex: i + 1,
@@ -156,8 +169,8 @@ function initCardAnimations() {
             });
         });
 
-        const wrapperH = window.innerHeight * 0.7 + scrollPerCard * (cards.length - 1);
-        gsap.set(cardsWrapper, { height: wrapperH });
+        const wrapperH = Math.min(window.innerHeight * 0.75, 560) + scrollPerCard * (cards.length - 1);
+        gsap.set(cardsWrapper, { height: wrapperH, overflow: 'visible', margin: '0 auto' });
 
         ScrollTrigger.create({
             trigger: cardsWrapper,

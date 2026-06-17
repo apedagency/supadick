@@ -31,7 +31,7 @@
     font-weight: 1000;
     line-height: 0.95;
     letter-spacing: -2px;
-    color: var(--color-black);
+    color: var(--color-white);
     margin-bottom: 120px;
     margin-right: 50px;
     cursor: url("/assets/Cursor SVG/cursor-text.svg") 12 12, auto;
@@ -50,7 +50,7 @@
     right: 7.8rem;
     width: 100px;
     height: auto;
-    color: var(--color-black);
+    color: var(--color-white);
     z-index: 6;
     transform: scaleX(0);
     opacity: 0;
@@ -89,7 +89,7 @@
 .marquee-svg-item:nth-child(1) {
     bottom: 18%;
     left: 68%;
-    width: 90px;
+    width: 170px;
     height: auto;
     transform: translateX(-50%) scale(0) rotate(-20deg);
     opacity: 0;
@@ -109,6 +109,15 @@
 .marquee-svg-item:nth-child(2) path {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
+}
+
+.marquee-get-link {
+    text-decoration: none;
+    cursor: url("/assets/Cursor SVG/cursor-pointer.svg") 12 12, pointer !important;
+}
+
+.marquee-get-link:hover .text-with {
+    text-decoration: underline;
 }
 
 /* ─── Right Panel — Scrolling Columns ────────────────────────────────────── */
@@ -198,7 +207,7 @@
 
 /* Legacy theme attributes (kept for compatibility) */
 .marquee-item[data-logo-theme="a"] {
-    background-color: #a52a5f;
+    background-color: var(--surface-2);
 }
 
 .marquee-item[data-logo-theme="b"] {
@@ -206,7 +215,7 @@
 }
 
 .marquee-item[data-logo-theme="c"] {
-    background-color: #ff6b4a;
+    background-color: var(--surface-4);
 }
 
 .marquee-item[data-logo-theme="d"] {
@@ -233,6 +242,6 @@
 
 .cover-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
 }

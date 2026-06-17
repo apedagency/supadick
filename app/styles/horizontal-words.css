@@ -28,8 +28,8 @@
     width: 23.75em;
     position: absolute;
     bottom: 100%;
-    left: 50%;
-    transform: translate(-160%, -35%);
+    left: 17.5%; /* Anchor to the watch sticker at the same offset */
+    transform: translate(-60%, -35%);
 }
 
 .horizontal-words__bottom-text {

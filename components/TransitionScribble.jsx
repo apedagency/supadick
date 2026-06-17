@@ -34,17 +34,18 @@ export default function TransitionScribble() {
             transitionScribbleSvg.style.color = randomColor;
 
             const lightColors = ['var(--color-lightblue)', 'var(--color-lightgreen)', 'var(--color-pink)'];
-            const logoColor = lightColors.includes(randomColor) ? '#000' : '#fff';
+            const logoColor = lightColors.includes(randomColor) ? '#141414' : '#E2E2E2';
 
             let transitionLogo = document.querySelector('.transition-logo');
             if (!transitionLogo) {
                 transitionLogo = document.createElement('div');
                 transitionLogo.className = 'transition-logo';
                 transitionLogo.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:10000; pointer-events:none; opacity:0; display:flex; justify-content:center; align-items:center; transition: color 0.1s;';
-                const svgClone = document.querySelector('.logo-truus').cloneNode(true);
-                svgClone.style.width = '150px';
-                svgClone.style.height = 'auto';
-                transitionLogo.appendChild(svgClone);
+                const logoImg = document.createElement('img');
+                logoImg.src = '/assets/VimeoHero SVG/usdc-logo.png';
+                logoImg.style.width = '150px';
+                logoImg.style.height = 'auto';
+                transitionLogo.appendChild(logoImg);
                 document.body.appendChild(transitionLogo);
             }
 
@@ -82,15 +83,15 @@ export default function TransitionScribble() {
             drawTl.to(transitionLogo, {
                 autoAlpha: 1, duration: durIn * 0.5, ease: 'power2.out',
                 onStart: () => {
-                    gsap.to(transitionLogo.querySelector('svg'), { rotation: 5, duration: 0.15, repeat: -1, yoyo: true, ease: 'steps(1)', overwrite: 'auto' });
+                    gsap.to(transitionLogo.querySelector('img'), { rotation: 5, duration: 0.15, repeat: -1, yoyo: true, ease: 'steps(1)', overwrite: 'auto' });
                 }
             }, durIn * 0.5);
 
             drawTl.set(transitionLogo, {
                 autoAlpha: 0,
                 onComplete: () => {
-                    gsap.killTweensOf(transitionLogo.querySelector('svg'));
-                    gsap.set(transitionLogo.querySelector('svg'), { rotation: 0 });
+                    gsap.killTweensOf(transitionLogo.querySelector('img'));
+                    gsap.set(transitionLogo.querySelector('img'), { rotation: 0 });
                 }
             }, durIn + (durOut * 0.48));
         };

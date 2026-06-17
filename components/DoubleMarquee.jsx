@@ -48,12 +48,21 @@ function assignColorsNoAdjacent(count, colorPool) {
 
 function buildMarqueeItems(isMobile) {
     const tracks = [[], []];
-    for (let t = 0; t < 2; t++) {
-        const shuffledBrands = shuffleNoAdjacentSrc(brands);
-        const assignedColors = assignColorsNoAdjacent(shuffledBrands.length, colors);
-        const items = shuffledBrands.map((brand, i) => ({ brand, color: assignedColors[i] }));
-        tracks[t] = isMobile ? items : [...items, ...items]; // duplicate for seamless loop
-    }
+    
+    // Left column: stickers 1-5
+    const leftBrands = brands.slice(0, 5);
+    const shuffledLeft = shuffleNoAdjacentSrc(leftBrands);
+    const colorsLeft = assignColorsNoAdjacent(shuffledLeft.length, colors);
+    const itemsLeft = shuffledLeft.map((brand, i) => ({ brand, color: colorsLeft[i] }));
+    tracks[0] = isMobile ? itemsLeft : [...itemsLeft, ...itemsLeft];
+
+    // Right column: stickers 6-10
+    const rightBrands = brands.slice(5, 10);
+    const shuffledRight = shuffleNoAdjacentSrc(rightBrands);
+    const colorsRight = assignColorsNoAdjacent(shuffledRight.length, colors);
+    const itemsRight = shuffledRight.map((brand, i) => ({ brand, color: colorsRight[i] }));
+    tracks[1] = isMobile ? itemsRight : [...itemsRight, ...itemsRight];
+
     return tracks;
 }
 
@@ -94,7 +103,31 @@ export default function DoubleMarquee() {
             {/* Left: Text + Blob */}
             <div className="marquee-left">
                 <div className="marquee-text-container">
-                    <h2>proud to have<br />worked <span className="text-with">with:</span></h2>
+                    <h2>
+                        sticker pack<br />is finally here<br />
+                        <a
+                            href="https://t.me/addstickers/ansemtheblackbull"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="marquee-get-link"
+                            onMouseEnter={(e) => {
+                                const target = e.currentTarget.querySelector('.text-with');
+                                if (target) {
+                                    gsap.set(target, { transformOrigin: 'center center', display: 'inline-block' });
+                                    target._wiggle = gsap.to(target, { rotation: 5, duration: 0.15, repeat: -1, yoyo: true, ease: 'steps(1)' });
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                const target = e.currentTarget.querySelector('.text-with');
+                                if (target) {
+                                    if (target._wiggle) { target._wiggle.kill(); target._wiggle = null; }
+                                    gsap.to(target, { rotation: 0, duration: 0.3, ease: 'power2.out' });
+                                }
+                            }}
+                        >
+                            <span className="text-with">get sticker pack</span>
+                        </a>
+                    </h2>
                     <svg xmlns="http://www.w3.org/2000/svg" className="marquee-underline" viewBox="0 0 132 5" fill="none">
                         <path d="M1 2.08377C44.3458 3.90451 87.9791 5.71442 131 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -103,7 +136,7 @@ export default function DoubleMarquee() {
                     <img src="/assets/Marquee-blob SVG/marquee-blob.svg" className="marquee-blob" alt="" aria-hidden="true" />
                     <div className="marquee-svg-container">
                         <div className="marquee-svg-item">
-                            <img src="/assets/Marquee-blob SVG/marquee-hand.svg" width="100%" alt="" aria-hidden="true" />
+                            <img src="/assets/stamp/middle-finger.png" width="100%" alt="" aria-hidden="true" />
                         </div>
                         <div className="marquee-svg-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 386 127" fill="none">
@@ -124,7 +157,18 @@ export default function DoubleMarquee() {
                                 <div key={i} className="marquee-item" data-brand={item.brand.name} style={{ backgroundColor: item.color }}>
                                     <div className="marquee-logo">
                                         <div className="marquee-logo__before"></div>
-                                        <img src={item.brand.src} loading="lazy" alt={item.brand.name} className="cover-image" />
+                                        {item.brand.type === 'video' ? (
+                                            <video
+                                                src={item.brand.src}
+                                                className="cover-image"
+                                                autoPlay
+                                                loop
+                                                muted
+                                                playsInline
+                                            />
+                                        ) : (
+                                            <img src={item.brand.src} loading="lazy" alt={item.brand.name} className="cover-image" />
+                                        )}
                                     </div>
                                 </div>
                             ))}

@@ -1,26 +1,31 @@
 /* ─── Tablet (769px – 1200px) ────────────────────────────────────────────── */
 @media (min-width: 769px) and (max-width: 1200px) {
-    .cards-wrapper {
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 50px;
-        padding-bottom: 50px;
-        gap: 30px;
-        overflow: visible;
+
+    /* MotionCards heading */
+    .motion-card__title {
+        font-size: clamp(3rem, 6vw, 7rem);
+        letter-spacing: -3px;
     }
 
-    .card {
-        position: relative;
-        left: auto !important;
-        top: auto !important;
-        transform: none !important;
-        width: 90%;
-        max-width: 400px;
+    .motion-card__subtitle {
+        font-size: clamp(3.5rem, 6.5vw, 7.5rem);
+    }
+
+    /* Cards area */
+    .motion-card__cards-area {
+        height: 420px;
+    }
+
+    .motion-card__card {
+        width: 22vw;
+        height: 28vw;
+    }
+
+    /* Marquee columns */
+    .marquee-right {
+        width: 420px;
         height: auto;
-        min-height: 400px;
-        margin-bottom: 20px;
+        min-height: 600px;
     }
 }
 
@@ -36,94 +41,313 @@
     .footer-email {
         font-size: 1.5rem;
     }
-
-    .footer-big-text {
-        font-size: 40vw;
-    }
 }
 
 /* ─── Mobile (≤ 768px) ───────────────────────────────────────────────────── */
 @media (max-width: 768px) {
 
+    /* ── Body / global ──────────────────  */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* ── Disable all custom cursors on touch ── */
+    * {
+        cursor: auto !important;
+    }
+
     /* ── Navbar ─────────────────────── */
     .navbar {
-        padding: 14px 16px;
+        padding: 12px 16px;
     }
 
     .logo-truus {
-        width: 100px;
+        width: 90px;
     }
 
     .logo-work-container {
-        width: 48px;
-        height: 44px;
+        width: 44px;
+        height: 40px;
     }
 
     .logo-work-text {
-        font-size: 1.4rem;
-        margin-left: 52px;
+        font-size: 1.3rem;
+        margin-left: 48px;
     }
 
-    .nav-bar__whatsapp-svg {
-        width: 26px;
+    .ca-button {
+        width: 120px;
+        font-size: 0.85rem;
+        padding: 6px 10px;
     }
 
-    /* ── Header Hero ────────────────── */
-    .header-content {
-        height: 100svh;
-        padding: 0 24px;
-        text-align: center;
+    /* Hide navbar hover popouts — unusable on touch */
+    .nav-popout {
+        display: none !important;
     }
 
-    .header-content h1 {
-        font-size: 2rem;
+    /* ── VimeoHero ──────────────────── */
+    .vimeo-hero {
+        border-radius: 16px;
+        width: calc(100% - 12px);
+        height: calc(100svh - 12px);
+        margin: 6px auto;
     }
 
-    /* ── Content / Hero Title ───────── */
+    /* Video fills container — override desktop cover sizing */
+    .vimeo-hero__iframe {
+        width: 100%;
+        height: 100%;
+        min-width: unset;
+        min-height: unset;
+        object-fit: cover;
+    }
+
+    .home-header__title {
+        padding: 0 18px;
+        bottom: 72px;
+    }
+
+    .vimeo-hero__title {
+        font-size: clamp(1.8rem, 7vw, 3rem);
+        letter-spacing: -1px;
+        gap: 0 0.1em;
+    }
+
+    .vimeo-hero__controls {
+        bottom: 18px;
+        left: 18px;
+        gap: 4px;
+    }
+
+    .vimeo-hero__btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Hide mouse-follow mute bubble on touch */
+    .vimeo-mute-bubble {
+        display: none !important;
+    }
+
+    /* ── Content sections ───────────── */
     .content-section {
-        padding: 80px 0 0;
+        padding: 60px 0 0;
         overflow: visible;
     }
 
+    /* ServiceCards section needs no top padding — GSAP controls its own spacing */
+    .service-cards-wrapper.content-section {
+        padding: 40px 0 0 !important;
+    }
+
     .main-title {
-        font-size: 3rem;
+        font-size: clamp(2rem, 8vw, 3rem);
         letter-spacing: -2px;
     }
 
     .title-underline-svg {
-        width: 100px;
-        bottom: -10px;
+        width: 90px;
+        bottom: -8px;
     }
 
     .title-container {
-        margin-bottom: 50px;
+        margin-bottom: 40px;
+        padding: 0 20px;
     }
 
-    /* ── Cards (GSAP-controlled) ─────── */
-    .cards-wrapper {
-        position: relative !important;
+    /* ── HorizontalWords — static vertical layout ── */
+    .horizontal-words-section {
+        height: auto !important;
+        min-height: unset !important;
+        overflow: visible !important;
+        padding: 56px 20px 48px;
+    }
+
+    .horizontal-words__relative {
+        position: static !important;
+        transform: none !important;
+        white-space: normal !important;
+        padding: 0 !important;
+        flex-wrap: wrap !important;
+        justify-content: flex-start !important;
         display: block !important;
+    }
+
+    .horizontal-words__h2 {
+        font-size: clamp(2.4rem, 11vw, 4.5rem) !important;
+        white-space: normal !important;
+        text-align: left !important;
+        line-height: 1.05 !important;
+        letter-spacing: -2px !important;
+    }
+
+    /* Hide GSAP decorations — arrows and floating sticker images only; keep the h2 */
+    .horizontal-words__arrow-svg,
+    .horizontal-words__arrow-end-svg {
+        display: none !important;
+    }
+
+    .horizontal-words__sticker-watch,
+    .horizontal-words__sticker-cursor,
+    .horizontal-words__sticker-phone {
+        display: none !important;
+    }
+
+    /* sticker-svg is a layout wrapper that also contains the h2 — don't hide it */
+    .horizontal-words__sticker-svg {
+        position: static !important;
+        width: auto !important;
+    }
+
+    .horizontal-words__bottom-text {
+        position: static !important;
+        transform: none !important;
         width: 100% !important;
-        margin: 0 auto !important;
+        padding: 28px 0 0 !important;
+        text-align: left !important;
+    }
+
+    .horizontal-words__bottom-text-l {
+        font-size: 0.95rem !important;
+        max-width: 100% !important;
+        line-height: 1.6 !important;
+    }
+
+    /* ── MotionCards ────────────────── */
+    .motion-card-section {
+        padding: 60px 20px 60px;
+    }
+
+    .motion-card__heading {
+        margin-bottom: 40px;
+    }
+
+    .motion-card__title {
+        font-size: clamp(2.2rem, 9vw, 4rem);
+        letter-spacing: -2px;
+        line-height: 0.95;
+    }
+
+    .motion-card__subtitle {
+        font-size: clamp(2.5rem, 10vw, 4.5rem);
+        letter-spacing: -1px;
+        top: -15px;
+    }
+
+    .motion-card__sticker--top {
+        width: 90px;
+        right: -10px;
+        top: -10px;
+    }
+
+    .motion-card__underline-svg {
+        margin-top: -25px;
+    }
+
+    /* Cards area: stack horizontally in a scrollable row */
+    .motion-card__cards-area {
+        height: auto !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 20px;
+        margin: 20px 0 40px;
+    }
+
+    .motion-card__cards-area::-webkit-scrollbar {
+        display: none;
+    }
+
+    .motion-card__cards {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 12px !important;
+        width: max-content !important;
+        padding: 20px 8px;
+    }
+
+    .motion-card__card {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        width: 62vw !important;
+        height: 75vw !important;
+        max-width: 280px !important;
+        max-height: 340px !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Keep slight tilts for visual interest */
+    .motion-card__card--1 { transform: rotate(-3deg) !important; }
+    .motion-card__card--2 { transform: rotate(2deg) !important; }
+    .motion-card__card--3 { transform: rotate(-2deg) !important; }
+    .motion-card__card--4 { transform: rotate(3deg) !important; }
+
+    /* Hide floating labels and blob — too complex in scroll context */
+    .motion-card__floating-labels,
+    .motion-card__blob {
+        display: none !important;
+    }
+
+    .motion-card__description {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* ── ServiceCards wrapper ───────── */
+    /* GSAP uses position:absolute on cards inside this wrapper — no offset margin allowed */
+    .service-cards-wrapper {
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+
+    .cards-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
         overflow: visible !important;
     }
 
     .card {
-        width: 82vw;
-        max-width: 340px;
-        min-height: 420px;
-        height: auto;
+        height: 440px;
     }
 
-    .card-sticker {
-        pointer-events: none;
+    .card-title {
+        font-size: 1.8rem;
+    }
+
+    .card-list li {
+        font-size: 1rem;
+    }
+
+    /* ── Showreel ───────────────────── */
+    .showreel-section {
+        min-height: 60vh;
+        padding: 0 20px;
+    }
+
+    .showreel__title {
+        font-size: clamp(1.8rem, 9vw, 2.8rem);
+        letter-spacing: -1px;
+    }
+
+    .showreel__subtitle {
+        font-size: 0.95rem;
+        letter-spacing: 1px;
     }
 
     /* ── Double Marquee ─────────────── */
     .Double-marquee {
         flex-direction: column;
         align-items: flex-start;
-        padding: 60px 24px 0;
+        padding: 56px 20px 0;
         gap: 0;
         min-height: unset;
     }
@@ -133,7 +357,7 @@
         width: 100%;
         justify-content: flex-start;
         align-items: flex-start;
-        min-height: 340px;
+        min-height: 300px;
     }
 
     .marquee-text-container {
@@ -141,27 +365,27 @@
     }
 
     .marquee-left h2 {
-        font-size: 2.6rem;
+        font-size: clamp(2rem, 9vw, 3rem);
         letter-spacing: -1.5px;
         margin-bottom: 0;
         margin-right: 0;
     }
 
     .marquee-blob-container {
-        width: 240px;
-        height: 280px;
+        width: 200px;
+        height: 240px;
         top: 45%;
         left: 20%;
     }
 
     .marquee-svg-item:nth-child(1) {
-        width: 60px;
+        width: 90px;
         bottom: 10%;
         left: 55%;
     }
 
     .marquee-svg-item:nth-child(2) {
-        width: 220px;
+        width: 180px;
         bottom: -5%;
         left: 55%;
     }
@@ -169,21 +393,21 @@
     .marquee-underline {
         top: 5rem;
         right: auto;
-        left: 9.5rem;
-        width: 70px;
+        left: 9rem;
+        width: 60px;
     }
 
-    /* ── Logo columns → 2-row horizontal scroll grid ── */
+    /* Logo columns → 2-row horizontal scroll grid */
     .marquee-right {
         display: grid;
-        grid-template-rows: 130px 130px;
+        grid-template-rows: 110px 110px;
         grid-auto-flow: column;
-        grid-auto-columns: 130px;
+        grid-auto-columns: 110px;
         gap: 8px;
         width: 100%;
         height: auto;
         margin-right: 0;
-        padding: 20px 24px 32px;
+        padding: 16px 0 28px;
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
@@ -210,8 +434,8 @@
     }
 
     .marquee-item {
-        width: 130px;
-        height: 130px;
+        width: 110px;
+        height: 110px;
         flex-shrink: 0;
     }
 
@@ -221,98 +445,98 @@
     }
 
     .footer-inner {
-        padding: 50px 20px 30px;
+        padding: 48px 20px 28px;
         border-radius: 14px;
-        min-height: 100svh;
+        min-height: unset;
     }
 
     .footer-top {
         flex-direction: column;
-        gap: 36px;
+        gap: 32px;
     }
 
     .footer-column h3 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         letter-spacing: -0.5px;
     }
 
     .footer-column address {
-        font-size: 1.25rem;
+        font-size: 1.15rem;
     }
 
     .footer-email {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .footer-whatsapp {
-        font-size: 1.1rem;
-        margin-top: -6px;
+        font-size: 1.05rem;
+        margin-top: -4px;
     }
 
     .footer-map-link {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
 
-    /* ── Footer Stickers (mobile) ──── */
+    /* Footer stickers — smaller & repositioned */
     .sticker-boom {
         left: 2%;
-        bottom: 10%;
-        width: 90px;
+        bottom: 12%;
+        width: 80px;
     }
 
     .sticker-smiley {
-        left: 30%;
+        left: 28%;
         bottom: 5%;
-        width: 90px;
+        width: 80px;
     }
 
     .sticker-heart {
         left: 50%;
-        bottom: 18%;
-        width: 85px;
+        bottom: 20%;
+        width: 75px;
     }
 
     .footer-sticker.sticker-hands {
-        left: 60%;
-        bottom: 2%;
-        width: 90px;
+        left: 62%;
+        bottom: 3%;
+        width: 80px;
     }
 
     .footer-sticker.sticker-100 {
-        left: 72%;
-        bottom: 20%;
-        width: 80px;
+        left: 74%;
+        bottom: 22%;
+        width: 70px;
     }
 
     .footer-sticker.sticker-camera {
         right: 2%;
-        bottom: 8%;
-        width: 85px;
+        left: auto;
+        bottom: 10%;
+        width: 75px;
     }
 
-    /* ── Footer wordmark ────────────── */
+    .sticker-dicktime {
+        display: none;
+    }
+
+    /* Footer wordmark image */
     .footer-bottom {
-        margin-top: 200px;
+        margin-top: 40px;
     }
 
-    .footer-logo__svg {
-        width: 110%;
-        margin-left: -5%;
-    }
-
-    /* ── Credits badge ──────────────── */
+    /* Credits */
     .footer-credits-wrapper {
-        margin-right: -15px;
-        margin-bottom: -15px;
+        margin-right: -14px;
+        margin-bottom: -14px;
     }
 
     .footer-credits {
         font-size: 0.75rem;
     }
 
-    .credits-box {
-        padding: 16px 20px;
-        gap: 20px;
+    .credits-content {
+        gap: 24px;
+        padding: 24px 18px;
     }
 
     .credits-label {
@@ -320,6 +544,99 @@
     }
 
     .credits-name {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
+}
+
+/* ─── Small phones (≤ 480px) ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 10px 14px;
+    }
+
+    .logo-truus {
+        width: 78px;
+    }
+
+    .ca-button {
+        width: 110px;
+        font-size: 0.8rem;
+    }
+
+    .vimeo-hero {
+        border-radius: 12px;
+    }
+
+    .home-header__title {
+        bottom: 64px;
+        padding: 0 14px;
+    }
+
+    .vimeo-hero__title {
+        font-size: clamp(1.6rem, 7.5vw, 2.4rem);
+    }
+
+    .vimeo-hero__controls {
+        bottom: 14px;
+        left: 14px;
+    }
+
+    .horizontal-words-section {
+        padding: 48px 16px 40px;
+    }
+
+    .horizontal-words__h2 {
+        font-size: clamp(2rem, 12vw, 3.5rem) !important;
+    }
+
+    .motion-card-section {
+        padding: 48px 16px 48px;
+    }
+
+    .motion-card__title {
+        font-size: clamp(1.9rem, 10vw, 3rem);
+    }
+
+    .motion-card__subtitle {
+        font-size: clamp(2.2rem, 11vw, 3.5rem);
+    }
+
+    .motion-card__card {
+        width: 70vw !important;
+        height: 85vw !important;
+        max-width: 260px !important;
+        max-height: 320px !important;
+    }
+
+    .showreel__title {
+        font-size: clamp(1.6rem, 10vw, 2.4rem);
+    }
+
+    .marquee-left h2 {
+        font-size: clamp(1.8rem, 10vw, 2.6rem);
+    }
+
+    .footer-inner {
+        padding: 40px 16px 24px;
+    }
+
+    .footer-column h3 {
+        font-size: 1.15rem;
+    }
+
+    .footer-email {
+        font-size: 1.05rem;
+    }
+
+    /* Hide most stickers on very small phones */
+    .sticker-smiley,
+    .sticker-hands,
+    .sticker-100 {
+        display: none;
+    }
+
+    .sticker-boom { width: 70px; }
+    .sticker-heart { width: 65px; left: 45%; }
+    .sticker-camera { width: 65px; }
 }

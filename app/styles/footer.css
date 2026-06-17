@@ -136,9 +136,11 @@
     cursor: url("/assets/Cursor SVG/cursor-pointer.svg") 12 12, pointer;
 }
 
-.footer-socials a svg {
+.footer-socials a svg,
+.footer-socials a img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }
 
 /* ─── Bottom Area ────────────────────────────────────────────────────────── */
@@ -150,17 +152,22 @@
 
 .footer-big-text {
     width: 100%;
-    color: var(--color-white);
-    text-align: center;
+    overflow: hidden;
+    height: 0;
+    padding-bottom: 50%;
+    position: relative;
     pointer-events: none;
     user-select: none;
-    margin-bottom: -70px;
 }
 
-.footer-logo__svg {
-    width: 104.9%;
+.footer-logo__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: auto;
-    margin-left: -2.5%;
+    display: block;
+    opacity: 0.12;
 }
 
 .footer-bottom-row {
@@ -302,43 +309,50 @@
 }
 
 .sticker-boom {
-    left: -1%;
+    left: 3%;
     bottom: 15%;
-    width: 150px;
-    transform: rotate(-10deg);
+    width: 140px;
+    transform: rotate(-12deg);
 }
 
 .sticker-smiley {
-    left: 20%;
-    bottom: 45%;
+    left: 17%;
+    bottom: 48%;
     width: 130px;
-    transform: rotate(-20deg);
+    transform: rotate(15deg);
 }
 
 .sticker-heart {
-    left: 45%;
-    bottom: 30%;
+    left: 31%;
+    bottom: 12%;
     width: 130px;
-    transform: rotate(-15deg);
+    transform: rotate(-8deg);
 }
 
 .footer-sticker.sticker-hands {
-    left: 55%;
-    bottom: 0%;
+    left: 45%;
+    bottom: 44%;
     width: 130px;
     transform: rotate(10deg);
 }
 
 .footer-sticker.sticker-100 {
-    left: 60%;
-    bottom: 55%;
-    width: 130px;
-    transform: rotate(-0deg);
+    left: 59%;
+    bottom: 15%;
+    width: 135px;
+    transform: rotate(-15deg);
 }
 
 .footer-sticker.sticker-camera {
-    right: 8%;
-    bottom: 15%;
+    left: 73%;
+    bottom: 48%;
     width: 130px;
-    transform: rotate(5deg);
+    transform: rotate(8deg);
+}
+
+.sticker-dicktime {
+    left: 87%;
+    bottom: 18%;
+    width: 140px;
+    transform: rotate(-10deg);
 }
