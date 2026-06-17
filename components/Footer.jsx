@@ -196,7 +196,7 @@ export default function Footer() {
                 {/* Contact */}
                 <div className="footer-column">
                     <span className="footer-badge">links</span>
-                    <a href="mailto:info@theblackbull.fun" className="footer-email">info@theblackbull.fun</a>
+                    <a className="footer-email">$ANSEM socials</a>
                     <div className="footer-socials" id="footer-socials">
                         {SOCIAL_ICONS.map(({ href, label, imgSrc }) => (
                             <a
