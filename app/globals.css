@@ -25,3 +25,5 @@
 /* Custom cursor bubble + scribble overlay  */
 @import './styles/responsive.css';
 /* All media queries (tablet + mobile)      */
+@import './styles/mobile-drawer.css';
+/* Hamburger + slide-out drawer (mobile only) */

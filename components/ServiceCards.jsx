@@ -151,51 +151,7 @@ function initCardAnimations() {
             });
         });
     } else {
-        // ─── Mobile: Stacked card scroll reveal ───
-        const cardsWrapper = document.querySelector('.cards-wrapper');
-        const scrollPerCard = window.innerHeight * 0.8;
-        const navH = 60;
-        const mobileRotations = [-6, 4, -8, 5, -3];
-
-        const cardW = Math.min(window.innerWidth - 40, 320);
-        cards.forEach((card, i) => {
-            gsap.set(card, {
-                position: 'absolute', left: '50%', top: '0', xPercent: -50,
-                width: cardW,
-                y: i === 0 ? 0 : window.innerHeight * 1.1,
-                rotation: mobileRotations[i % mobileRotations.length],
-                zIndex: i + 1,
-                transformOrigin: 'center center'
-            });
-        });
-
-        const wrapperH = Math.min(window.innerHeight * 0.75, 560) + scrollPerCard * (cards.length - 1);
-        gsap.set(cardsWrapper, { height: wrapperH, overflow: 'visible', margin: '0 auto' });
-
-        ScrollTrigger.create({
-            trigger: cardsWrapper,
-            start: `top ${navH}px`,
-            end: `+=${scrollPerCard * (cards.length - 1)}`,
-            pin: true,
-            pinSpacing: true,
-            id: 'mobile-cards-pin'
-        });
-
-        cards.forEach((card, i) => {
-            if (i === 0) return;
-            gsap.fromTo(card,
-                { y: window.innerHeight * 1.1 },
-                {
-                    y: 0,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: cardsWrapper,
-                        start: `top+=${(i - 1) * scrollPerCard} ${navH}px`,
-                        end: `top+=${i * scrollPerCard} ${navH}px`,
-                        scrub: 0.4
-                    }
-                }
-            );
-        });
+        // Mobile: static CSS vertical stack — no GSAP needed
+        return;
     }
 }

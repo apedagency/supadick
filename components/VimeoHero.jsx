@@ -180,7 +180,7 @@ export default function VimeoHero() {
                         </span>
 
                         {/* "advertising" italic */}
-                        <span className="vimeo-hero__word"><em>black bull </em></span>
+                        <span className="vimeo-hero__word"><em>Black Bull </em></span>
 
                         {/* "for" */}
                         <span className="vimeo-hero__word">for </span>

@@ -77,25 +77,32 @@ export default function DoubleMarquee() {
         setIsMobile(mobile);
         setTracks(buildMarqueeItems(mobile));
 
-        // Arrow path animation
-        gsap.set('.marquee-left .marquee-svg-item:nth-child(2) path', { strokeDashoffset: 1000 });
+        // Arrow path animation — desktop only (mobile skips entry animations)
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 769px)', () => {
+            gsap.set('.marquee-left .marquee-svg-item:nth-child(2) path', { strokeDashoffset: 1000 });
 
-        const marqueeTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.Double-marquee',
-                start: 'top 70%',
-                toggleActions: 'play none none reverse' // Allow replaying on scroll out/in
-            }
+            const marqueeTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.Double-marquee',
+                    start: 'top 70%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+
+            marqueeTl
+                .to('.marquee-underline', { scaleX: 1, opacity: 1, duration: 1, ease: 'power2.out' })
+                .to('.marquee-left .marquee-svg-item:nth-child(1)', { scale: 1, opacity: 1, rotation: -10, duration: 0.6, ease: 'back.out(1.7)' }, '-=0.5')
+                .to('.marquee-left .marquee-svg-item:nth-child(2) path', { strokeDashoffset: 0, duration: 1.5, ease: 'power2.out' }, '-=0.3');
+
+            return () => marqueeTl.kill();
         });
 
-        marqueeTl
-            .to('.marquee-underline', { scaleX: 1, opacity: 1, duration: 1, ease: 'power2.out' })
-            .to('.marquee-left .marquee-svg-item:nth-child(1)', { scale: 1, opacity: 1, rotation: -10, duration: 0.6, ease: 'back.out(1.7)' }, '-=0.5')
-            .to('.marquee-left .marquee-svg-item:nth-child(2) path', { strokeDashoffset: 0, duration: 1.5, ease: 'power2.out' }, '-=0.3');
-
         return () => {
+            mm.revert();
             ScrollTrigger.getAll().forEach(t => { if (t.vars.trigger === '.Double-marquee') t.kill(); });
         };
+
     }, []);
 
     return (

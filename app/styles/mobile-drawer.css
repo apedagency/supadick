@@ -1,0 +1,323 @@
+/* ─── Mobile Drawer — ALL rules scoped to ≤768px ──────────────────────────── */
+/* Desktop: mobile-only elements hidden by min-width query below.               */
+/* Mobile:  elements shown by max-width query — no cascade conflict.            */
+
+/* ── Hide mobile-only elements on DESKTOP (≥769px) ───────────────────────── */
+/* Using min-width avoids specificity fights with the mobile @media block.      */
+@media (min-width: 769px) {
+    .hamburger-btn,
+    .mobile-drawer,
+    .mobile-drawer-overlay,
+    .mobile-ca-pill {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* ── Hamburger button ──────────────────────────────────────────────────── */
+    .hamburger-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 8px;
+        z-index: 1100;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .hamburger-btn span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        /* Always use light text color — ignore navbar on-dark/on-light class */
+        background-color: var(--text-primary);
+        border-radius: 2px;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.2s ease,
+                    width 0.3s ease;
+        transform-origin: center;
+    }
+
+    /* Open state — X icon */
+    .hamburger-btn.is-open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+    .hamburger-btn.is-open span:nth-child(2) {
+        opacity: 0;
+        width: 0;
+    }
+    .hamburger-btn.is-open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ── Mobile CA pill — always visible in navbar ─────────────────────────── */
+    .mobile-ca-pill {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--surface-3);
+        border: 1px solid var(--border-default);
+        border-radius: 20px;
+        padding: 6px 12px 6px 10px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.2s ease, border-color 0.2s ease;
+        flex-shrink: 0;
+        max-width: 160px;
+        outline: none;
+    }
+
+    .mobile-ca-pill:active {
+        background: var(--surface-4);
+        border-color: var(--border-strong);
+    }
+
+    .mobile-ca-pill__icon {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        opacity: 0.7;
+    }
+
+    /* Copy icon SVG paths inherit current color */
+    .mobile-ca-pill__icon path {
+        stroke: currentColor;
+    }
+
+    .mobile-ca-pill__text {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100px;
+        transition: color 0.2s ease;
+    }
+
+    .mobile-ca-pill.copied .mobile-ca-pill__text {
+        color: #6fcf97;
+    }
+
+    .mobile-ca-pill.copied .mobile-ca-pill__icon {
+        opacity: 1;
+    }
+
+    /* ── Overlay backdrop ──────────────────────────────────────────────────── */
+    .mobile-drawer-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 1050;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+    }
+
+    .mobile-drawer-overlay.is-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* ── Drawer panel ──────────────────────────────────────────────────────── */
+    .mobile-drawer {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: min(80vw, 320px);
+        height: 100dvh;
+        background-color: var(--bg-secondary);
+        z-index: 1099;
+        padding: 72px 28px 40px;
+        gap: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+
+        /* Slide in from right */
+        transform: translateX(100%);
+        transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
+    }
+
+    .mobile-drawer.is-open {
+        transform: translateX(0);
+    }
+
+    /* ── Drawer header ─────────────────────────────────────────────────────── */
+    .mobile-drawer__header {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 36px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .mobile-drawer__title {
+        font-family: 'Epilogue', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: var(--text-primary);
+        line-height: 1;
+    }
+
+    .mobile-drawer__ticker {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    /* ── Nav links ─────────────────────────────────────────────────────────── */
+    .mobile-drawer__links {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1;
+    }
+
+    .mobile-drawer__link {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        text-decoration: none;
+        color: var(--text-primary);
+        font-family: 'Epilogue', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+        border-bottom: 1px solid var(--border-subtle);
+        transition: color 0.2s ease, padding-left 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-drawer__link:last-child {
+        border-bottom: none;
+    }
+
+    .mobile-drawer__link:active {
+        color: var(--text-secondary);
+        padding-left: 4px;
+    }
+
+    .mobile-drawer__link-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background-color: var(--surface-3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    .mobile-drawer__link-icon img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+    }
+
+    .mobile-drawer__link-label {
+        flex: 1;
+    }
+
+    .mobile-drawer__link-arrow {
+        opacity: 0.35;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    /* ── CA Button in drawer ───────────────────────────────────────────────── */
+    .mobile-drawer__ca {
+        margin-top: 28px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-subtle);
+    }
+
+    .mobile-drawer__ca-label {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 10px;
+    }
+
+    .mobile-drawer__ca-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background: var(--surface-3);
+        border: 1px solid var(--border-default);
+        border-radius: 10px;
+        padding: 12px 14px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        gap: 10px;
+        transition: background 0.2s ease;
+    }
+
+    .mobile-drawer__ca-btn:active {
+        background: var(--surface-4);
+    }
+
+    .mobile-drawer__ca-address {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        letter-spacing: 0.3px;
+        text-align: left;
+        word-break: break-all;
+        line-height: 1.5;
+        flex: 1;
+    }
+
+    .mobile-drawer__ca-copy {
+        font-family: 'Epilogue', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        background: var(--surface-4);
+        border-radius: 6px;
+        padding: 5px 10px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: background 0.15s ease;
+    }
+
+    .mobile-drawer__ca-copy.copied {
+        color: #6fcf97;
+    }
+
+    /* ── Body scroll lock when drawer open ────────────────────────────────── */
+    body.drawer-open {
+        overflow: hidden !important;
+        touch-action: none;
+    }
+
+}
+/* ─── End @media (max-width: 768px) ──────────────────────────────────────── */

@@ -100,51 +100,63 @@ export default function Footer() {
         // ─── Footer sticker pop-up on scroll ───
         const footerStickers = gsap.utils.toArray('.footer-sticker');
         const stickerRotations = [12, -10, 8, -12, 10, -8];
-        gsap.set(footerStickers, { scale: 0, opacity: 0, transformOrigin: 'center bottom' });
-        footerStickers.forEach((sticker, i) => gsap.set(sticker, { rotation: stickerRotations[i % stickerRotations.length] }));
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-        gsap.to(footerStickers, {
-            scale: 1, opacity: 1,
-            rotation: (i) => stickerRotations[i % stickerRotations.length] * 0.7,
-            duration: 0.7, ease: 'back.out(1.7)', stagger: 0.12,
-            scrollTrigger: {
-                trigger: '.footer-stickers',
-                start: 'top 80%',
-                toggleActions: 'play none none reverse' // Play on enter, reverse on leave up
-            }
-        });
+        if (!isMobile) {
+            // Desktop: animated pop-in on scroll + cursor proximity push
+            gsap.set(footerStickers, { scale: 0, opacity: 0, transformOrigin: 'center bottom' });
+            footerStickers.forEach((sticker, i) => gsap.set(sticker, { rotation: stickerRotations[i % stickerRotations.length] }));
 
-        // ─── Sticker cursor-velocity push ───
-        footerStickers.forEach((sticker, i) => {
-            const baseRotation = stickerRotations[i % stickerRotations.length] * 0.7;
-            const PROXIMITY_RADIUS = 180, STRENGTH = 4, MAX_PUSH = 55, MIN_SPEED = 3;
-            let prevX = 0, prevY = 0;
-            const clamp = (v, max) => Math.max(-max, Math.min(max, v));
-
-            const onMove = (e) => {
-                const dx = e.clientX - prevX, dy = e.clientY - prevY;
-                prevX = e.clientX; prevY = e.clientY;
-                const rect = sticker.getBoundingClientRect();
-                const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-                const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
-                const onSticker = e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
-                const speed = Math.hypot(dx, dy);
-
-                // Disable proximity push if the mouse is hovering over the open credits popup box
-                const isOverCreditsBox = e.target.closest('.credits-box') !== null;
-
-                if (!onSticker && !isOverCreditsBox && dist < PROXIMITY_RADIUS && speed > MIN_SPEED) {
-                    const falloff = 1 - (dist / PROXIMITY_RADIUS);
-                    const pushX = clamp(dx * STRENGTH * falloff, MAX_PUSH);
-                    const pushY = clamp(dy * STRENGTH * falloff, MAX_PUSH);
-                    gsap.killTweensOf(sticker);
-                    gsap.to(sticker, { x: pushX, y: pushY, rotation: baseRotation + pushX * 0.25, duration: 0.18, ease: 'power3.out' });
-                    gsap.to(sticker, { x: 0, y: 0, rotation: baseRotation, duration: 1.1, ease: 'elastic.out(1, 0.35)', delay: 0.18 });
+            gsap.to(footerStickers, {
+                scale: 1, opacity: 1,
+                rotation: (i) => stickerRotations[i % stickerRotations.length] * 0.7,
+                duration: 0.7, ease: 'back.out(1.7)', stagger: 0.12,
+                scrollTrigger: {
+                    trigger: '.footer-stickers',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
                 }
-            };
-            document.addEventListener('mousemove', onMove);
-            // No cleanup stored here to match original behaviour (lives for page lifetime)
-        });
+            });
+
+            // ─── Sticker cursor-velocity push (desktop only) ───
+            footerStickers.forEach((sticker, i) => {
+                const baseRotation = stickerRotations[i % stickerRotations.length] * 0.7;
+                const PROXIMITY_RADIUS = 180, STRENGTH = 4, MAX_PUSH = 55, MIN_SPEED = 3;
+                let prevX = 0, prevY = 0;
+                const clamp = (v, max) => Math.max(-max, Math.min(max, v));
+
+                const onMove = (e) => {
+                    const dx = e.clientX - prevX, dy = e.clientY - prevY;
+                    prevX = e.clientX; prevY = e.clientY;
+                    const rect = sticker.getBoundingClientRect();
+                    const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+                    const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+                    const onSticker = e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+                    const speed = Math.hypot(dx, dy);
+                    const isOverCreditsBox = e.target.closest('.credits-box') !== null;
+
+                    if (!onSticker && !isOverCreditsBox && dist < PROXIMITY_RADIUS && speed > MIN_SPEED) {
+                        const falloff = 1 - (dist / PROXIMITY_RADIUS);
+                        const pushX = clamp(dx * STRENGTH * falloff, MAX_PUSH);
+                        const pushY = clamp(dy * STRENGTH * falloff, MAX_PUSH);
+                        gsap.killTweensOf(sticker);
+                        gsap.to(sticker, { x: pushX, y: pushY, rotation: baseRotation + pushX * 0.25, duration: 0.18, ease: 'power3.out' });
+                        gsap.to(sticker, { x: 0, y: 0, rotation: baseRotation, duration: 1.1, ease: 'elastic.out(1, 0.35)', delay: 0.18 });
+                    }
+                };
+                document.addEventListener('mousemove', onMove);
+            });
+        } else {
+            // Mobile: stickers appear immediately — no animation, no cursor tracking
+            footerStickers.forEach((sticker, i) => {
+                gsap.set(sticker, {
+                    scale: 1,
+                    opacity: 1,
+                    rotation: stickerRotations[i % stickerRotations.length] * 0.7
+                });
+            });
+        }
+
 
         // ─── Wiggle on footer interactive elements ───
         const wiggleTargets = [

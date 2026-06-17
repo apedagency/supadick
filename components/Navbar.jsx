@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { WIGGLE_CONFIG } from '@/lib/data';
 
@@ -58,6 +58,32 @@ export default function Navbar() {
     const [caState, setCaState] = useState('normal'); // 'normal' | 'hover' | 'action'
     const isCaHoveredRef = useRef(false);
     const caTimeoutRef = useRef(null);
+
+    // ── Mobile drawer state ──────────────────────────────────────────────────
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [drawerCopied, setDrawerCopied] = useState(false);
+    const drawerCopyTimeoutRef = useRef(null);
+
+    const toggleDrawer = useCallback(() => setDrawerOpen(v => !v), []);
+    const closeDrawer = useCallback(() => setDrawerOpen(false), []);
+
+    const handleDrawerCa = useCallback(() => {
+        copyToClipboard('6KDh3wLSZMg37nnU7prtKZr7Rut7WQGSf33Vp1G7pump');
+        setDrawerCopied(true);
+        if (drawerCopyTimeoutRef.current) clearTimeout(drawerCopyTimeoutRef.current);
+        drawerCopyTimeoutRef.current = setTimeout(() => setDrawerCopied(false), 2000);
+    }, []);
+
+    // Lock body scroll when drawer open
+    useEffect(() => {
+        if (drawerOpen) {
+            document.body.classList.add('drawer-open');
+        } else {
+            document.body.classList.remove('drawer-open');
+        }
+        return () => document.body.classList.remove('drawer-open');
+    }, [drawerOpen]);
+
 
     const handleCaMouseEnter = () => {
         isCaHoveredRef.current = true;
@@ -339,6 +365,7 @@ export default function Navbar() {
                 <div className="nav-center" style={{ cursor: "url('/assets/Cursor SVG/cursor-pointer.svg') 12 12, pointer" }}>
                 </div>
                 <div className="nav-right" style={{ cursor: "url('/assets/Cursor SVG/cursor-pointer.svg') 12 12, pointer" }}>
+                    {/* Desktop CA button — hidden on mobile via CSS */}
                     <button
                         className="ca-button"
                         onClick={handleCaClick}
@@ -362,8 +389,134 @@ export default function Navbar() {
                             className={`ca-button-img ${caState === 'action' ? 'active' : ''}`}
                         />
                     </button>
+
+                    {/* Mobile CA pill — always visible in navbar, hidden on desktop via CSS */}
+                    <button
+                        className={`mobile-ca-pill ${drawerCopied ? 'copied' : ''}`}
+                        onClick={handleDrawerCa}
+                        aria-label="Copy contract address"
+                    >
+                        <svg className="mobile-ca-pill__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            {drawerCopied ? (
+                                <path d="M5 13l4 4L19 7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                            ) : (
+                                <>
+                                    <rect x="9" y="9" width="13" height="13" rx="2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                </>
+                            )}
+                        </svg>
+                        <span className="mobile-ca-pill__text">
+                            {drawerCopied ? '✓ copied!' : '6KDh3w…pump'}
+                        </span>
+                    </button>
+
+                    {/* Mobile hamburger — hidden on desktop via CSS */}
+                    <button
+                        className={`hamburger-btn ${drawerOpen ? 'is-open' : ''}`}
+                        onClick={toggleDrawer}
+                        aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
+                        aria-expanded={drawerOpen}
+                    >
+                        <span />
+                        <span />
+                        <span />
+                    </button>
                 </div>
             </nav>
+
+
+            {/* ── Mobile drawer backdrop ─────────────────────────────────────── */}
+            <div
+                className={`mobile-drawer-overlay ${drawerOpen ? 'is-open' : ''}`}
+                onClick={closeDrawer}
+                aria-hidden="true"
+            />
+
+            {/* ── Mobile slide-out drawer ────────────────────────────────────── */}
+            <aside
+                className={`mobile-drawer ${drawerOpen ? 'is-open' : ''}`}
+                aria-label="Navigation menu"
+                aria-hidden={!drawerOpen}
+            >
+                <div className="mobile-drawer__header">
+                    <span className="mobile-drawer__title">The Black Bull</span>
+                    <span className="mobile-drawer__ticker">$ANSEM</span>
+                </div>
+
+                <nav className="mobile-drawer__links">
+                    <a
+                        href="https://dexscreener.com/solana/edexqsn8ndyudusndngmybr9czevkbvxjb2vpfmvo6x3"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mobile-drawer__link"
+                        onClick={closeDrawer}
+                    >
+                        <div className="mobile-drawer__link-icon">
+                            <img src="/assets/social/dex.png" alt="" aria-hidden="true" />
+                        </div>
+                        <span className="mobile-drawer__link-label">DexScreener</span>
+                        <span className="mobile-drawer__link-arrow">↗</span>
+                    </a>
+
+                    <a
+                        href="https://x.com/theblackbull_x"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mobile-drawer__link"
+                        onClick={closeDrawer}
+                    >
+                        <div className="mobile-drawer__link-icon">
+                            <img src="/assets/social/x.png" alt="" aria-hidden="true" />
+                        </div>
+                        <span className="mobile-drawer__link-label">X (Twitter)</span>
+                        <span className="mobile-drawer__link-arrow">↗</span>
+                    </a>
+
+                    <a
+                        href="https://x.com/i/communities/2027147135070982610"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mobile-drawer__link"
+                        onClick={closeDrawer}
+                    >
+                        <div className="mobile-drawer__link-icon">
+                            <img src="/assets/social/community.png" alt="" aria-hidden="true" />
+                        </div>
+                        <span className="mobile-drawer__link-label">Community</span>
+                        <span className="mobile-drawer__link-arrow">↗</span>
+                    </a>
+
+                    <a
+                        href="#sticker-pack"
+                        className="mobile-drawer__link"
+                        onClick={closeDrawer}
+                    >
+                        <div className="mobile-drawer__link-icon">
+                            <img src="/assets/stamp/middle-finger.png" alt="" aria-hidden="true" />
+                        </div>
+                        <span className="mobile-drawer__link-label">Sticker Pack</span>
+                        <span className="mobile-drawer__link-arrow">↓</span>
+                    </a>
+                </nav>
+
+                <div className="mobile-drawer__ca">
+                    <p className="mobile-drawer__ca-label">Contract Address</p>
+                    <button
+                        className="mobile-drawer__ca-btn"
+                        onClick={handleDrawerCa}
+                        aria-label="Copy contract address"
+                    >
+                        <span className="mobile-drawer__ca-address">
+                            6KDh3wLSZMg37nnU7prtKZr7Rut7WQGSf33Vp1G7pump
+                        </span>
+                        <span className={`mobile-drawer__ca-copy ${drawerCopied ? 'copied' : ''}`}>
+                            {drawerCopied ? '✓ copied' : 'copy'}
+                        </span>
+                    </button>
+                </div>
+            </aside>
         </>
     );
 }
+

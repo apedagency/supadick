@@ -132,12 +132,12 @@ export default function MotionCards() {
             {/* ─── Part 1: Bold Heading Text with SVG Sticker Placeholders ─── */}
             <div className="motion-card__heading">
                 <h2 className="motion-card__title">
-                    the last bull
+                    The Last Bull
                     <br />
-                    standing.
+                    Standing.
                 </h2>
                 <p className="motion-card__subtitle">
-                    the black bull
+                    The Black Bull
                     {/* SVG sticker placeholder — top-right area */}
                     <span className="motion-card__sticker motion-card__sticker--top">
                         <img
