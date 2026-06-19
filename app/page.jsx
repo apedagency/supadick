@@ -13,6 +13,7 @@ import CursorBubble from '@/components/CursorBubble';
 import SmoothScroll from '@/components/SmoothScroll';
 
 import HorizontalWords from '@/components/HorizontalWords';
+import CommunityPosts from '@/components/CommunityPosts';
 
 export default function Home() {
     return (
@@ -25,6 +26,7 @@ export default function Home() {
                 <VimeoHero />
             </header>
             <HorizontalWords />
+            <CommunityPosts />
             <main>
                 <div className="content-section motion-cards-wrapper">
                     <MotionCards />

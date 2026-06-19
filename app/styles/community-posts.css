@@ -1,0 +1,61 @@
+.community-posts-section {
+    padding: 100px 5vw;
+    background-color: var(--bg-color);
+    position: relative;
+    z-index: 10;
+}
+
+.community-posts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.community-posts__item {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.community-posts__item blockquote {
+    margin: 0;
+    width: 100%;
+    max-width: 550px;
+}
+
+/* Tablet Layout */
+@media (max-width: 1024px) {
+    .community-posts__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+    .community-posts-section {
+        padding: 60px 1rem; 
+        width: 100%;
+    }
+
+    .community-posts__grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        width: 100%;
+    }
+
+    .community-posts__item {
+        width: 100%;
+        overflow: visible; /* ensure we don't crop the card */
+    }
+
+    .community-posts__item blockquote,
+    .community-posts__item iframe {
+        width: 100% !important; 
+        max-width: 100% !important;
+        min-width: 250px !important; /* Twitter's absolute minimum */
+        margin: 0 auto !important;
+    }
+}

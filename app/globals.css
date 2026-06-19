@@ -27,3 +27,5 @@
 /* All media queries (tablet + mobile)      */
 @import './styles/mobile-drawer.css';
 /* Hamburger + slide-out drawer (mobile only) */
+@import './styles/community-posts.css';
+/* Community Posts section with Twitter embeds */
