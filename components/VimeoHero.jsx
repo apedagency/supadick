@@ -148,11 +148,12 @@ export default function VimeoHero() {
                 */}
                 <video
                     ref={iframeRef}
-                    src="/assets/Video/hero-3.mp4"
+                    src="https://ik.imagekit.io/fmnvm0st1/ansem/hero-3.mp4"
                     autoPlay
                     loop
                     muted
                     playsInline
+                    preload="metadata"
                     className="vimeo-hero__iframe"
                     style={{ objectFit: 'cover', backgroundColor: '#141414' }}
                 />
