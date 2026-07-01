@@ -339,22 +339,13 @@ export default function Navbar() {
                                         <h4 className="nav-work-title">buy $ansem now!</h4>
                                     </div>
                                 </a>
-                                <a href="https://x.com/theblackbull_x" target="_blank" rel="noopener noreferrer" className="nav-work-item">
+                                <a href="https://x.com/blackbull_sol" target="_blank" rel="noopener noreferrer" className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
                                         <img src="/assets/social/x.png" loading="eager" alt="X Account" sizes="100vw" srcSet="/assets/social/x.png 1080w" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
                                         <span className="nav-work-badge badge-pink">x</span>
                                         <h4 className="nav-work-title">follow our x account</h4>
-                                    </div>
-                                </a>
-                                <a href="https://x.com/i/communities/2027147135070982610" target="_blank" rel="noopener noreferrer" className="nav-work-item">
-                                    <div className="nav-work-item__img-wrap">
-                                        <img src="/assets/social/x.png" loading="eager" alt="Community" sizes="100vw" srcSet="/assets/social/community.png 1080w" className="nav-work-item__img" />
-                                    </div>
-                                    <div className="nav-work-item__text">
-                                        <span className="nav-work-badge badge-pink">community</span>
-                                        <h4 className="nav-work-title">join our community!</h4>
                                     </div>
                                 </a>
                                 <a href="#sticker-pack" className="nav-work-btn"><span className="nav-work-btn__text">stickers pack</span></a>
@@ -460,7 +451,7 @@ export default function Navbar() {
                     </a>
 
                     <a
-                        href="https://x.com/theblackbull_x"
+                        href="https://x.com/blackbull_sol"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mobile-drawer__link"
@@ -470,20 +461,6 @@ export default function Navbar() {
                             <img src="/assets/social/x.png" alt="" aria-hidden="true" />
                         </div>
                         <span className="mobile-drawer__link-label">X (Twitter)</span>
-                        <span className="mobile-drawer__link-arrow">↗</span>
-                    </a>
-
-                    <a
-                        href="https://x.com/i/communities/2027147135070982610"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mobile-drawer__link"
-                        onClick={closeDrawer}
-                    >
-                        <div className="mobile-drawer__link-icon">
-                            <img src="/assets/social/community.png" alt="" aria-hidden="true" />
-                        </div>
-                        <span className="mobile-drawer__link-label">Community</span>
                         <span className="mobile-drawer__link-arrow">↗</span>
                     </a>
 

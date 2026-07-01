@@ -178,13 +178,6 @@ export default function Footer() {
     return (
         <div className="footer-inner">
             <div className="footer-top">
-                {/* Jobs */}
-                <div className="footer-column">
-                    <span className="footer-badge">ready to bagwork?</span>
-                    <a href="https://x.com/i/communities/2027147135070982610" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <h3>join our community</h3>
-                    </a>
-                </div>
                 {/* Office */}
                 <div className="footer-column">
                     <span className="footer-badge">operations</span>
