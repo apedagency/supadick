@@ -68,7 +68,7 @@ export default function Navbar() {
     const closeDrawer = useCallback(() => setDrawerOpen(false), []);
 
     const handleDrawerCa = useCallback(() => {
-        copyToClipboard('6KDh3wLSZMg37nnU7prtKZr7Rut7WQGSf33Vp1G7pump');
+        copyToClipboard('9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump');
         setDrawerCopied(true);
         if (drawerCopyTimeoutRef.current) clearTimeout(drawerCopyTimeoutRef.current);
         drawerCopyTimeoutRef.current = setTimeout(() => setDrawerCopied(false), 2000);
@@ -100,7 +100,7 @@ export default function Navbar() {
     };
 
     const handleCaClick = () => {
-        copyToClipboard('6KDh3wLSZMg37nnU7prtKZr7Rut7WQGSf33Vp1G7pump');
+        copyToClipboard('9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump');
         setCaState('action');
 
         if (caTimeoutRef.current) {
@@ -330,7 +330,7 @@ export default function Navbar() {
                         {/* Pop-out Box for Left Side */}
                         <div className="nav-popout nav-work-box">
                             <div className="nav-popout-inner">
-                                <a href="https://dexscreener.com/solana/edexqsn8ndyudusndngmybr9czevkbvxjb2vpfmvo6x3" target="_blank" rel="noopener noreferrer" className="nav-work-item">
+                                <a href="https://dexscreener.com/solana/FnzKY6x7entQ1eR3D225dQyT7ybfka4PskBMQhb8L3CC" target="_blank" rel="noopener noreferrer" className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
                                         <img src="/assets/social/dex.png" loading="eager" alt="Dexscreener" className="nav-work-item__img" />
                                     </div>
@@ -407,7 +407,7 @@ export default function Navbar() {
                             )}
                         </svg>
                         <span className="mobile-ca-pill__text">
-                            {drawerCopied ? '✓ copied!' : '6KDh3w…pump'}
+                            {drawerCopied ? '✓ copied!' : '9cRCn9…pump'}
                         </span>
                     </button>
 
@@ -446,7 +446,7 @@ export default function Navbar() {
 
                 <nav className="mobile-drawer__links">
                     <a
-                        href="https://dexscreener.com/solana/edexqsn8ndyudusndngmybr9czevkbvxjb2vpfmvo6x3"
+                        href="https://dexscreener.com/solana/FnzKY6x7entQ1eR3D225dQyT7ybfka4PskBMQhb8L3CC"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mobile-drawer__link"
@@ -508,7 +508,7 @@ export default function Navbar() {
                         aria-label="Copy contract address"
                     >
                         <span className="mobile-drawer__ca-address">
-                            6KDh3wLSZMg37nnU7prtKZr7Rut7WQGSf33Vp1G7pump
+                            9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump
                         </span>
                         <span className={`mobile-drawer__ca-copy ${drawerCopied ? 'copied' : ''}`}>
                             {drawerCopied ? '✓ copied' : 'copy'}

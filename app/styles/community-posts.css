@@ -6,30 +6,48 @@
 }
 
 .community-posts__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    column-count: 3;
+    column-gap: 2rem;
     max-width: 1400px;
     margin: 0 auto;
+    display: block; /* Ensure it is block, not grid */
 }
 
 .community-posts__item {
-    display: flex;
-    justify-content: center;
+    display: inline-block;
     width: 100%;
+    break-inside: avoid;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
 .community-posts__item blockquote {
-    margin: 0;
+    margin: 0 auto;
     width: 100%;
     max-width: 550px;
+    display: inline-block;
+    text-align: left;
+}
+
+.community-posts__main-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.community-posts__item--main {
+    display: flex;
+    justify-content: center;
+    max-width: 550px;
+    width: 100%;
 }
 
 /* Tablet Layout */
 @media (max-width: 1024px) {
     .community-posts__grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        column-count: 2;
+        column-gap: 1.5rem;
     }
 }
 
@@ -41,14 +59,15 @@
     }
 
     .community-posts__grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        column-count: 1;
+        column-gap: 0;
         width: 100%;
     }
 
     .community-posts__item {
         width: 100%;
         overflow: visible; /* ensure we don't crop the card */
+        margin-bottom: 1.5rem;
     }
 
     .community-posts__item blockquote,

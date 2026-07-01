@@ -20,6 +20,13 @@ export default function CommunityPosts() {
     }, []);
 
     const posts = [
+        "https://x.com/blknoiz06/status/2072325054117933114",
+        "https://x.com/blknoiz06/status/2072322307264008624",
+        "https://x.com/blknoiz06/status/2072285520021877237",
+        "https://x.com/blknoiz06/status/2072282936791957886",
+        "https://x.com/blknoiz06/status/2072149721779433959",
+        "https://x.com/blknoiz06/status/2071954881338818933",
+        "https://x.com/blknoiz06/status/2071763189155405978",
         "https://x.com/blknoiz06/status/2067453680920478090",
         "https://x.com/blknoiz06/status/2067438927728849364",
         "https://x.com/blknoiz06/status/2066522670364082426",
@@ -36,6 +43,15 @@ export default function CommunityPosts() {
                     <br />
                     Speak.
                 </h2>
+            </div>
+
+            {/* Main Featured Post on top & centered */}
+            <div className="community-posts__main-wrapper">
+                <div className="community-posts__item community-posts__item--main">
+                    <blockquote className="twitter-tweet" data-theme="dark">
+                        <a href="https://x.com/blknoiz06/status/2071751724117750019"></a>
+                    </blockquote>
+                </div>
             </div>
 
             <div className="community-posts__grid">
